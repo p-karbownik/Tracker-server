@@ -12,6 +12,7 @@ pipeline {
         NEXUS_URL = "nexus:8081"
         NEXUS_REPOSITORY = "maven-snapshots"
         NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
+        HEROKU_API_KEY = credentials('heroku')
     }
 
     stages {
