@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>pl.edu.pw.pik</groupId>
-	<artifactId>pikactivity-tracker-server</artifactId>
+	<artifactId>pik-activity-tracker-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pikactivity-tracker-server</name>
+	<name>pik-activity-tracker-server</name>
 	<description>project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
