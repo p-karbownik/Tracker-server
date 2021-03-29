@@ -1,7 +1,6 @@
 package pl.edu.pw.pik.pikactivitytrackerserver;
 
 import org.junit.jupiter.api.Test;
-import pl.edu.pw.pik.pikactivitytrackerserver.SampleClass;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SampleClassTest {
