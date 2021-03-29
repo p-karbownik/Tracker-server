@@ -73,8 +73,8 @@ pipeline {
         stage('Deploy')
         {
             steps {
-                echo "$HEROKU_CREDENTIALS_EMAIL"
-                echo "$HEROKU_CREDENTIALS_PASSWORD"
+                echo "$heroku-user"
+                echo "$heroku-password"
                 sh "heroku login"
             }
         }
