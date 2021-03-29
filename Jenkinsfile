@@ -73,8 +73,8 @@ pipeline {
         stage('Deploy')
         {
             steps {
-                echo "$HEROKU_API_KEY"
-                sh "heroku login"
+               sh "heroku container:push web -a activity-tracker-server"
+               sh "heroku container:release -a activity-tracker-server/web"
             }
         }
     }
