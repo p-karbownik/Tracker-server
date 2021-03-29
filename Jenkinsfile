@@ -73,6 +73,7 @@ pipeline {
         stage('Deploy')
         {
             steps {
+                echo "$HEROKU_API_KEY"
                 sh "heroku login"
             }
         }
