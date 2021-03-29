@@ -12,6 +12,8 @@ pipeline {
         NEXUS_URL = "nexus:8081"
         NEXUS_REPOSITORY = "maven-snapshots"
         NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
+        HEROKU_CREDENTIALS_EMAIL = "heroku-user"
+        HEROKU_CREDENTIALS_PASSWORD = "heroku-password"
     }
 
     stages {
@@ -71,7 +73,9 @@ pipeline {
         stage('Deploy')
         {
             steps {
-                sh 'mvn clean -e heroku:deploy'
+                echo "$HEROKU_CREDENTIALS_EMAIL"  # or you can plaintext it, if you're feeling adventurous
+                echo "$HEROKU_CREDENTIALS_PASSWORD"
+                sh "heroku login"
             }
         }
     }
