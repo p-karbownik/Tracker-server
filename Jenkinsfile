@@ -70,8 +70,12 @@ pipeline {
                 }
             }
         }
-        stage('Deploy')
-        {
+        stage('Deploy') {
+            agent {
+                dockerfile {
+                    filename 'Dockerfile'
+                }
+            }
             steps {
                sh "docker -v"
                sh "heroku container:push web -a activity-tracker-server"
