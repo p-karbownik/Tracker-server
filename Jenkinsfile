@@ -73,7 +73,7 @@ pipeline {
         stage('Deploy') {
             steps {
                sh "heroku container:push web -a activity-tracker-server"
-               sh "heroku container:release -a activity-tracker-server"
+               sh "heroku container:release web -a activity-tracker-server"
             }
         }
     }
