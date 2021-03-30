@@ -72,9 +72,8 @@ pipeline {
         }*/
         stage('Deploy') {
             steps {
-               sh "pwd"
                sh "heroku container:push web -a activity-tracker-server"
-               sh "heroku container:release -a activity-tracker-server/web"
+               sh "heroku container:release -a activity-tracker-server"
             }
         }
     }
