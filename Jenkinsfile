@@ -12,6 +12,8 @@ pipeline {
         NEXUS_URL = "nexus:8081"
         NEXUS_REPOSITORY = "maven-snapshots"
         NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
+        HEROKU_CREDENTIALS_EMAIL = "heroku-user"
+        HEROKU_CREDENTIALS_PASSWORD = "heroku-password"
     }
 
     stages {
@@ -66,6 +68,12 @@ pipeline {
                         error "*** File: ${artifactPath}, could not be found";
                     }
                 }
+            }
+        }
+        stage('Deploy') {
+            steps {
+               sh "heroku container:push web -a activity-tracker-server"
+               sh "heroku container:release web -a activity-tracker-server"
             }
         }
     }
