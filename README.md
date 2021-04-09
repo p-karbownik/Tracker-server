@@ -1,4 +1,7 @@
 # Tracker-server
+Pusty projekt został wygenerowany za pomocą https://start.spring.io/. Jest realizowany w strukturze Maven, testy jednostkowe wykonujemy za pomocą JUnit. Używamy jacoco, jest realizowany jaco stage mavena.
+
+Aby wygenerować ładnie wyglądające raporty jacoco użyj: mvn jacoco:report
 
 Uruchomienie projektu przy użyciu Dockera (wymagany zainstalowany Docker):
 - zbudowanie pliku jar: mvn clean install
