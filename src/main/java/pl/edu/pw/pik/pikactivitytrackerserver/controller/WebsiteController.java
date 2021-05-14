@@ -1,4 +1,4 @@
 package pl.edu.pw.pik.pikactivitytrackerserver.controller;
 
-public class SiteController {
+public class WebsiteController {
 }
