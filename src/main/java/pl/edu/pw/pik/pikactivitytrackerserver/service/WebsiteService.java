@@ -1,11 +1,8 @@
 package pl.edu.pw.pik.pikactivitytrackerserver.service;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.pik.pikactivitytrackerserver.DAO.Dao;
-import pl.edu.pw.pik.pikactivitytrackerserver.DAO.WebsiteDAO;
-import pl.edu.pw.pik.pikactivitytrackerserver.model.User;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Website;
 
 import java.util.Optional;
@@ -14,25 +11,25 @@ import java.util.Optional;
 @Service
 public class WebsiteService {
 
-    private static Dao<Website> jpaWebsideDao;
+    private static Dao<Website> websideDao;
 
     public static Website getWebsite(long id) {
-        Optional<Website> website = jpaWebsideDao.get(id);
+        Optional<Website> website = websideDao.get(id);
 
         return website.orElseGet(
                 () -> new Website("no-non-existing url", -1));
     }
 
     public static void updateWebsite(Website website, String[] params) {
-        jpaWebsideDao.update(website, params);
+        websideDao.update(website, params);
     }
 
     public static void saveWebsite(Website website) {
-        jpaWebsideDao.save(website);
+        websideDao.save(website);
     }
 
     public static void deleteWebsite(Website website) {
-        jpaWebsideDao.delete(website);
+        websideDao.delete(website);
     }
 
 }

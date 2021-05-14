@@ -8,5 +8,5 @@ import pl.edu.pw.pik.pikactivitytrackerserver.model.User;
 public interface EventReciver {
 //TODO it desent work probably because Event in model isn't ready
 
-//    private static Dao<Event> jpaEventDao;
+//    private static Dao<Event> eventDao;
 }

@@ -1,8 +1,6 @@
 package pl.edu.pw.pik.pikactivitytrackerserver.service;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.pik.pikactivitytrackerserver.DAO.Dao;
-import pl.edu.pw.pik.pikactivitytrackerserver.DAO.UserDAO;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.User;
 
 import java.util.Optional;
@@ -11,24 +9,24 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private static Dao<User> jpaUserDao;
+    private static Dao<User> userDao;
 
     public static User getUser(long id) {
-        Optional<User> user = jpaUserDao.get(id);
+        Optional<User> user = userDao.get(id);
 
         return user.orElseGet(
                 () -> new User("no-non-existing login", "non-existing password"));
     }
 
     public static void updateUser(User user, String[] params) {
-        jpaUserDao.update(user, params);
+        userDao.update(user, params);
     }
 
     public static void saveUser(User user) {
-        jpaUserDao.save(user);
+        userDao.save(user);
     }
 
     public static void deleteUser(User user) {
-        jpaUserDao.delete(user);
+        userDao.delete(user);
     }
 }
