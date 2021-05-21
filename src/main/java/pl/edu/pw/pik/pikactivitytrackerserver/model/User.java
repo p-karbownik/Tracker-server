@@ -15,13 +15,11 @@ public class User {
     //Contains hash of a password
     private  String password;
 
-    //TODO Do I need id or is it actually generated
     public User(String login, String password) {
         this.login = login;
         this.password = password;
     }
 
-    //TODO why jpa requires an empty constructor?
     public User() {
 
     }
