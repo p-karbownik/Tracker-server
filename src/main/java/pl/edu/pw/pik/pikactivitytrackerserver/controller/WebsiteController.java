@@ -21,13 +21,8 @@ public class WebsiteController {
     @GetMapping("/get/{id}")
     public ResponseEntity<Website> websiteById(@PathVariable Integer id)
     {
-        System.out.println(id);
         Website w = websiteService.getSingleWebsite(1);
-        if(w == null)
-        {
-            System.out.println("kuupa"
-            );
-        }
+
         if(w != null)
         {
             return new ResponseEntity<>(w, HttpStatus.OK);
