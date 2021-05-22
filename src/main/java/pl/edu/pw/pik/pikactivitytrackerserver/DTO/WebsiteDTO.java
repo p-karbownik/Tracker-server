@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class WebsiteDTO {
     private Integer user_id;
+    private String website_name;
     private String url;
 }
