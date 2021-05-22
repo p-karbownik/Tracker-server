@@ -2,6 +2,7 @@ package pl.edu.pw.pik.pikactivitytrackerserver.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,9 +60,15 @@ public class WebsiteService {
        return websitesRepository.getWebsiteByWebsite_id(id);
     }
 
-    public void deleteWebsite(int user_id, int website_id)
+    public void deleteWebsite(int website_id, int user_id)
     {
-        websitesRepository.deleteWebsiteByWebsite_idAndUser_id(website_id, user_id);
+        Website ws = websitesRepository.getWebsiteByWebsite_idAndUser_id(website_id, user_id);
+
+        if(ws != null)
+            if (websitesRepository.existsById(website_id)) {
+                websitesRepository.deleteById(user_id);
+            }
+
     }
 
 }
