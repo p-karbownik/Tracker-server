@@ -1,23 +1,29 @@
 package pl.edu.pw.pik.pikactivitytrackerserver.model;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity(name = "website")
 @Table(name = "websites")
-public class Website {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+
+public class Website{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String url;
+    @Column(name = "website_id")
+    private int website_id;
+
+    @Column(name = "user_id")
     private int user_id;
 
-    public Website(String url, int user_id) {
-        this.url = url;
-        this.user_id = user_id;
-    }
+    @Column(name = "url")
+    private String url;
 
-    public Website() {
-
-    }
 }
