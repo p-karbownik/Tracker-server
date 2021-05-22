@@ -9,6 +9,8 @@ import pl.edu.pw.pik.pikactivitytrackerserver.DTO.WebsiteDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Website;
 import pl.edu.pw.pik.pikactivitytrackerserver.service.WebsiteService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path="/websites")
 @CrossOrigin(origins="*")
@@ -21,12 +23,23 @@ public class WebsiteController {
     @GetMapping("/get/{id}")
     public ResponseEntity<Website> websiteById(@PathVariable Integer id)
     {
-        Website w = websiteService.getSingleWebsite(1);
+        Website w = websiteService.getSingleWebsite(id);
 
         if(w != null)
         {
             return new ResponseEntity<>(w, HttpStatus.OK);
         }
+
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/getAll/{id}")
+    public ResponseEntity<List<Website>> getUsersWebsites(@PathVariable Integer id)
+    {
+        List<Website> lW = websiteService.getWebsitesByUserId(id);
+
+        if(lW != null)
+            return new ResponseEntity<>(lW, HttpStatus.OK);
 
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }

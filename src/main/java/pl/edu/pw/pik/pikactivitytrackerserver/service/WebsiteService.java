@@ -31,6 +31,7 @@ public class WebsiteService {
         Website website = new Website();
         website.setUser_id(dto.getUser_id());
         website.setUrl(dto.getUrl());
+        website.setName(dto.getWebsite_name());
         //token
         //website_id samo sie wygeneruje
         String token;
@@ -68,7 +69,6 @@ public class WebsiteService {
             if (websitesRepository.existsById(website_id)) {
                 websitesRepository.deleteById(user_id);
             }
-
     }
 
 }
