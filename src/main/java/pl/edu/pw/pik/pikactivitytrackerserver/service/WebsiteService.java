@@ -4,6 +4,7 @@ package pl.edu.pw.pik.pikactivitytrackerserver.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import pl.edu.pw.pik.pikactivitytrackerserver.DTO.WebsiteDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.Repository.WebsitesRepository;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Website;
@@ -58,9 +59,9 @@ public class WebsiteService {
        return websitesRepository.getWebsiteByWebsite_id(id);
     }
 
-    public void deleteWebsite(int id)
+    public void deleteWebsite(int user_id, int website_id)
     {
-        websitesRepository.deleteById(id);
+        websitesRepository.deleteWebsiteByWebsite_idAndUser_id(website_id, user_id);
     }
 
 }

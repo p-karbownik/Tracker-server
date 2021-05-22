@@ -1,6 +1,5 @@
 package pl.edu.pw.pik.pikactivitytrackerserver.controller;
 
-import antlr.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +8,6 @@ import pl.edu.pw.pik.pikactivitytrackerserver.DTO.TokenDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.DTO.WebsiteDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Website;
 import pl.edu.pw.pik.pikactivitytrackerserver.service.WebsiteService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(path="/websites")
@@ -45,5 +42,11 @@ public class WebsiteController {
         }
 
         return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @DeleteMapping("/deleteWebsite/{user_id}/{website_id}")
+    public void deleteWebsite(@PathVariable Integer user_id, @PathVariable Integer website_id)
+    {
+        websiteService.deleteWebsite(user_id, website_id);
     }
 }
