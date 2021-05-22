@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
@@ -12,5 +13,9 @@ import java.util.UUID;
 
 public class EventDTO
 {
-    private UUID websiteToken;
+    private int id;
+    private String websiteToken;
+    private Timestamp appearanceDate;
+    private String eventData;
+
 }
