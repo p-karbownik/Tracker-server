@@ -14,4 +14,7 @@ public interface WebsitesRepository extends JpaRepository<Website, Integer>{
 
     @Query(value = "select * from websites where website_id = ?", nativeQuery = true)
     Website getWebsiteByWebsite_id(Integer id);
+
+    @Query(value = "select * from websites where token = ?", nativeQuery = true)
+    Website getWebsiteByToken(String token);
 }

@@ -9,6 +9,7 @@ import pl.edu.pw.pik.pikactivitytrackerserver.Repository.WebsitesRepository;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Website;
 
 import java.util.List;
+import java.util.UUID;
 
 //it means that this class contains buisness logic
 @Service
@@ -18,12 +19,33 @@ public class WebsiteService {
     @Autowired
     WebsitesRepository websitesRepository;
 
-    public void addWebsite(WebsiteDTO dto)
+    private String generateToken()
+    {
+        return UUID.randomUUID().toString();
+    }
+
+    public String addWebsite(WebsiteDTO dto)
     {
         Website website = new Website();
         website.setUser_id(dto.getUser_id());
         website.setUrl(dto.getUrl());
+        //token
+        //website_id samo sie wygeneruje
+        String token;
+        Website tempWebsite = null;
+        do {
 
+            //wygeneruj UUID
+            token = generateToken();
+            //sprawdz czy jakis obiekt tego nie ma
+            tempWebsite = websitesRepository.getWebsiteByToken(token);
+        }while (tempWebsite != null);
+
+        website.setToken(token);
+
+        websitesRepository.save(website);
+
+        return token;
     }
 
     public List<Website> getWebsitesByUserId(Integer id)

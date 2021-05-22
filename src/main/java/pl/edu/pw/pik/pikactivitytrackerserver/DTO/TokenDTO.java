@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class WebsiteDTO {
-    private Integer user_id;
-    private String url;
+public class TokenDTO {
+    private String token;
 }
