@@ -4,6 +4,7 @@ package pl.edu.pw.pik.pikactivitytrackerserver.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.edu.pw.pik.pikactivitytrackerserver.DTO.WebsiteDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.Repository.WebsitesRepository;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Website;
 
@@ -17,10 +18,12 @@ public class WebsiteService {
     @Autowired
     WebsitesRepository websitesRepository;
 
-    public boolean addWebsite(Website website)
+    public void addWebsite(WebsiteDTO dto)
     {
-        //buisness processing
-        return true;
+        Website website = new Website();
+        website.setUser_id(dto.getUser_id());
+        website.setUrl(dto.getUrl());
+
     }
 
     public List<Website> getWebsitesByUserId(Integer id)

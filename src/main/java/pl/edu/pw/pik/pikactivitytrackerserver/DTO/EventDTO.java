@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 
 public class EventDTO
 {
-    private int id;
     private String websiteToken;
     private Timestamp appearanceDate;
     private String eventData;

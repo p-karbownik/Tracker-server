@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.pw.pik.pikactivitytrackerserver.DTO.WebsiteDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Website;
 import pl.edu.pw.pik.pikactivitytrackerserver.service.WebsiteService;
 
@@ -31,4 +32,9 @@ public class WebsiteController {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
+    @PostMapping("/addWebsite")
+    public void addWebsite(WebsiteDTO dto)
+    {
+        websiteService.addWebsite(dto);
+    }
 }
