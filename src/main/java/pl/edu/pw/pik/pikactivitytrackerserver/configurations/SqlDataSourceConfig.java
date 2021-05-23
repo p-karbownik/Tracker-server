@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 
 import javax.sql.DataSource;
 
-@Configuration(proxyBeanMethods = false)
+@Configuration(proxyBeanMethods = true)
 public class SqlDataSourceConfig {
     @Bean
     @Primary
