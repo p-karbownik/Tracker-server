@@ -1,8 +1,10 @@
 package pl.edu.pw.pik.pikactivitytrackerserver.service;
 
 
+import com.mongodb.client.MongoCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,15 +34,11 @@ public class WebsiteService {
         website.setUser_id(dto.getUser_id());
         website.setUrl(dto.getUrl());
         website.setName(dto.getWebsite_name());
-        //token
-        //website_id samo sie wygeneruje
+
         String token;
         Website tempWebsite = null;
         do {
-
-            //wygeneruj UUID
             token = generateToken();
-            //sprawdz czy jakis obiekt tego nie ma
             tempWebsite = websitesRepository.getWebsiteByToken(token);
         }while (tempWebsite != null);
 
@@ -71,4 +69,9 @@ public class WebsiteService {
             }
     }
 
+    public void deleteWebsitesByUserId(int user_id)
+    {
+        List<Website> websitesToDelete = websitesRepository.getWebsitesByUserId(user_id);
+        websitesRepository.deleteAll(websitesToDelete);
+    }
 }

@@ -62,4 +62,10 @@ public class WebsiteController {
     {
         websiteService.deleteWebsite(user_id, website_id);
     }
+
+    @DeleteMapping("/deleteAll/{user_id}")
+    public void deleteAllWebsitesByUserId(@PathVariable Integer user_id)
+    {
+        deleteAllWebsitesByUserId(user_id);
+    }
 }

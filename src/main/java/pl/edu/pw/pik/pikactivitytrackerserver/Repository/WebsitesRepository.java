@@ -20,4 +20,5 @@ public interface WebsitesRepository extends JpaRepository<Website, Integer>{
 
     @Query(value = "select * from websites where website_id = ? and user_id = ?", nativeQuery = true)
     Website getWebsiteByWebsite_idAndUser_id(int website_id, int user_id);
+
 }
