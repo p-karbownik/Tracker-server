@@ -22,9 +22,7 @@ public class EventDALImplementation implements EventDAL{
 
     @Override
     public void saveEvent(Event event) throws Exception {
-        Set<String> collectionNames = mongoTemplate.getCollectionNames();
-
-        if(collectionNames.contains(event.getWebsite_token()))
+        if(!mongoTemplate.getCollectionNames().contains(event.getWebsite_token()))
             mongoTemplate.save(event, event.getWebsite_token());
         else
             throw new Exception("The website is not supported");
