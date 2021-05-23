@@ -17,12 +17,8 @@ public class CollectionDALImplementation implements CollectionDAL{
     }
 
     @Override
-    public void createCollection(String collectionName) throws Exception {
-
-        if(!mongoTemplate.getCollectionNames().contains(collectionName))
-            mongoTemplate.createCollection(collectionName);
-        else
-            throw new Exception("Collection exists");
+    public void createCollection(String collectionName) {
+        mongoTemplate.createCollection(collectionName);
     }
 
     @Override

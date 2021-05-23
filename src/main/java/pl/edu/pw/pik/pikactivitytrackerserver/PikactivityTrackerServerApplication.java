@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class PikactivityTrackerServerApplication {
 
 	public static void main(String[] args) {
-		System.out.println("Hello World!");
 		SpringApplication.run(PikactivityTrackerServerApplication.class, args);
 	}
 
