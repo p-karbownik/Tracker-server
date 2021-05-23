@@ -3,7 +3,7 @@ package pl.edu.pw.pik.pikactivitytrackerserver.model;
 import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.Id;
 
-//@Document
+@Document
 public class Event {
 
     @Id
@@ -45,7 +45,6 @@ public class Event {
     public void setEventData(String eventData) {
         this.eventData = eventData;
     }
-
 
     public String getEventName() {
         return eventName;

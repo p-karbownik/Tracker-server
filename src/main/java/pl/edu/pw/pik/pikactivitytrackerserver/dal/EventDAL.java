@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EventDAL
 {
-    Event saveEvent(Event event);
+    void saveEvent(Event event) throws Exception;
     List<Event> getAllEventOfWebsite(String token);
     List<Event> findByDateAfter(Timestamp timestamp);
     List<Event> findById(String id, String token);

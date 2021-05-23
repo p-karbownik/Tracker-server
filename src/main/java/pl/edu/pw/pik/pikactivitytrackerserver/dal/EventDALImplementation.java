@@ -7,6 +7,7 @@ import pl.edu.pw.pik.pikactivitytrackerserver.model.Event;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class EventDALImplementation implements EventDAL{
@@ -20,8 +21,13 @@ public class EventDALImplementation implements EventDAL{
     }
 
     @Override
-    public Event saveEvent(Event event) {
-        return null;
+    public void saveEvent(Event event) throws Exception {
+        Set<String> collectionNames = mongoTemplate.getCollectionNames();
+
+        if(collectionNames.contains(event.getWebsite_token()))
+            mongoTemplate.save(event, event.getWebsite_token());
+        else
+            throw new Exception("The website is not supported");
     }
 
     @Override
