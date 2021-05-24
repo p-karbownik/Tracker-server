@@ -11,7 +11,6 @@ public class UserDTO {
 
     private String username;
     private String password;
-    private String user_id;
     private String salt;
 
     public String getUsername() {
@@ -21,8 +20,6 @@ public class UserDTO {
     public String getPassword() {
         return password;
     }
-
-    public String getUser_id() { return user_id; }
 
     public String getSalt() { return salt; }
 }
