@@ -8,6 +8,7 @@ import pl.edu.pw.pik.pikactivitytrackerserver.DTO.TokenDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.DTO.UserDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.DTO.WebsiteDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.User;
+import pl.edu.pw.pik.pikactivitytrackerserver.model.Website;
 import pl.edu.pw.pik.pikactivitytrackerserver.service.UserService;
 
 
@@ -30,5 +31,31 @@ public class UserController {
         }
 
         return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @PostMapping("/login/{username}")
+    public ResponseEntity<String> loginUsername(@PathVariable String username)
+    {
+        String salt = userService.loginUsername(username);
+
+        if(salt != null)
+        {
+            return new ResponseEntity<>(salt, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Integer> loginUsernameAndHashedPassword(@RequestBody UserDTO dto)
+    {
+        Integer id = userService.loginUsernameAndHashedPassword(dto.getUsername(), dto.getPassword());
+
+        if(id != null)
+        {
+            return new ResponseEntity<>(id, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 }

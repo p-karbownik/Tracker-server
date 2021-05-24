@@ -35,4 +35,23 @@ public class UserService {
         return user;
     }
 
+    public String loginUsername(String username) {
+        List<User> users = userRepository.findByUsername(username);
+        if (users.size() != 0){
+            return users.get(0).getSalt();
+        }
+        return null;
+    }
+
+    public Integer loginUsernameAndHashedPassword(String username, String password) {
+        List<User> users = userRepository.findByUsername(username);
+
+        if ( users.size() != 0){
+
+            if(users.get(0).getPassword().equals(password))
+
+                return users.get(0).getUser_id();
+        }
+        return null;
+    }
 }
