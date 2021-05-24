@@ -25,7 +25,7 @@ public class UserController {
 
         if(user != null)
         {
-            return new ResponseEntity<>(user.getUsername(), HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);

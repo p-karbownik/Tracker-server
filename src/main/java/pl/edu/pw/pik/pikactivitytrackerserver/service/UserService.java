@@ -15,7 +15,11 @@ public class UserService {
     public User register(UserDTO userDTO) {
 
         String username = userDTO.getUsername();
-        User user = new User(username,userDTO.getPassword());
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(userDTO.getPassword());
+        user.setSalt(userDTO.getSalt());
 
         if (userRepository.findByUsername(username) != null){
             return null;
