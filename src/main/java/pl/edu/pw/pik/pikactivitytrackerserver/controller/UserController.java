@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping("/login/{username}")
-    public ResponseEntity<String> loginUsername(@PathVariable String username)
+    public ResponseEntity<String> getSalt(@PathVariable String username)
     {
         String salt = userService.loginUsername(username);
 
@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Integer> loginUsernameAndHashedPassword(@RequestBody UserDTO dto)
+    public ResponseEntity<Integer> login(@RequestBody UserDTO dto)
     {
         Integer id = userService.loginUsernameAndHashedPassword(dto.getUsername(), dto.getPassword());
 
