@@ -33,7 +33,7 @@ public class UserController {
         return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
     }
 
-    @PostMapping("/login/{username}")
+    @GetMapping("/login/{username}")
     public ResponseEntity<String> loginUsername(@PathVariable String username)
     {
         String salt = userService.loginUsername(username);
