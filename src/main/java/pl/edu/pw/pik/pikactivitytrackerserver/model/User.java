@@ -1,27 +1,31 @@
 package pl.edu.pw.pik.pikactivitytrackerserver.model;
 
 
-import javax.persistence.*;
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
+import javax.persistence.*;
+
+@Entity(name = "user")
 @Table(name = "users")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private int user_id;
 
-    private String login;
-    //Contains hash of a password
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
     private String password;
 
-    public User(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
+    @Column(name = "salt")
+    private String salt;
 
-    public User() {
-
-    }
 }
