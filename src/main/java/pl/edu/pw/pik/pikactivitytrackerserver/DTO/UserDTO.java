@@ -13,13 +13,4 @@ public class UserDTO {
     private String password;
     private String salt;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getSalt() { return salt; }
 }
