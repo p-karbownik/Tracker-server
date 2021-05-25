@@ -27,7 +27,7 @@ public class UserService {
         user.setPassword(userDTO.getPassword());
         user.setSalt(userDTO.getSalt());
 
-        if (userRepository.findByUsername(username).size() != 0){
+        if (userRepository.findByUsername(username) != null){
             return null;
         }
         userRepository.save(user);
@@ -36,21 +36,21 @@ public class UserService {
     }
 
     public String loginUsername(String username) {
-        List<User> users = userRepository.findByUsername(username);
-        if (users.size() != 0){
-            return users.get(0).getSalt();
+        User user = userRepository.findByUsername(username);
+        if (user != null){
+            return user.getSalt();
         }
         return null;
     }
 
     public Integer loginUsernameAndHashedPassword(String username, String password) {
-        List<User> users = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
 
-        if ( users.size() != 0){
+        if ( user != null){
 
-            if(users.get(0).getPassword().equals(password))
+            if(user.getPassword().equals(password))
 
-                return users.get(0).getUser_id();
+                return user.getUser_id();
         }
         return null;
     }
