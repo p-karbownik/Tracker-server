@@ -1,12 +1,15 @@
 package pl.edu.pw.pik.pikactivitytrackerserver.service;
 
 
+import com.mongodb.client.MongoCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import pl.edu.pw.pik.pikactivitytrackerserver.DTO.WebsiteDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.Repository.WebsitesRepository;
-import pl.edu.pw.pik.pikactivitytrackerserver.dal.CollectionDAL;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Website;
 
 import java.util.List;
@@ -32,15 +35,18 @@ public class WebsiteService {
         Website website = new Website();
         website.setUser_id(dto.getUser_id());
         website.setUrl(dto.getUrl());
-        website.setName(dto.getWebsite_name());
+        website.setName(dto.getWebsiteName());
 
         String token;
         Website tempWebsite = null;
         do {
             token = generateToken();
             tempWebsite = websitesRepository.getWebsiteByToken(token);
+
         }while (tempWebsite != null);
 
+        if(websitesRepository.getWebsiteByUrl(dto.getUrl()) != null)
+            return null;
         website.setToken(token);
         collectionDAL.createCollection(token);
         websitesRepository.save(website);
@@ -58,14 +64,14 @@ public class WebsiteService {
        return websitesRepository.getWebsiteByWebsite_id(id);
     }
 
-    public void deleteWebsite(int website_id, int user_id)
+    public void deleteWebsite(int user_id, int website_id)
     {
         Website ws = websitesRepository.getWebsiteByWebsite_idAndUser_id(website_id, user_id);
 
         if(ws != null)
             if (websitesRepository.existsById(website_id)) {
-                websitesRepository.deleteById(user_id);
                 collectionDAL.dropCollection(ws.getToken());
+                websitesRepository.deleteById(website_id);
             }
     }
 

@@ -5,10 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class WebsiteDTO {
-    private Integer user_id;
-    private String websiteName;
-    private String url;
+@AllArgsConstructor
+public class UserDTO {
+    private String username;
+    private String password;
+    private String salt;
 }
