@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 public class EventDTO
 {
     private String websiteToken;
+    private String eventName;
     private Timestamp appearanceDate;
     private String eventData;
 }

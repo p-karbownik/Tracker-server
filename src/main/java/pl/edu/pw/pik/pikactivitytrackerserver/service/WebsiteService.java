@@ -1,18 +1,14 @@
 package pl.edu.pw.pik.pikactivitytrackerserver.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 import pl.edu.pw.pik.pikactivitytrackerserver.DTO.WebsiteDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.Repository.WebsitesRepository;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Website;
-
 import java.util.List;
 import java.util.UUID;
 
-//it means that this class contains buisness logic
 @Service
 @Transactional
 public class WebsiteService {
@@ -30,18 +26,18 @@ public class WebsiteService {
         Website website = new Website();
         website.setUser_id(dto.getUser_id());
         website.setUrl(dto.getUrl());
-        //token
-        //website_id samo sie wygeneruje
+        website.setName(dto.getWebsiteName());
+
         String token;
         Website tempWebsite = null;
         do {
-
-            //wygeneruj UUID
             token = generateToken();
-            //sprawdz czy jakis obiekt tego nie ma
             tempWebsite = websitesRepository.getWebsiteByToken(token);
+
         }while (tempWebsite != null);
 
+        if(websitesRepository.getWebsiteByUrl(dto.getUrl()) != null)
+            return null;
         website.setToken(token);
 
         websitesRepository.save(website);
@@ -61,7 +57,17 @@ public class WebsiteService {
 
     public void deleteWebsite(int user_id, int website_id)
     {
-        websitesRepository.deleteWebsiteByWebsite_idAndUser_id(website_id, user_id);
+        Website ws = websitesRepository.getWebsiteByWebsite_idAndUser_id(website_id, user_id);
+
+        if(ws != null)
+            if (websitesRepository.existsById(website_id)) {
+                websitesRepository.deleteById(website_id);
+            }
     }
 
+    public void deleteWebsitesByUserId(int user_id)
+    {
+        List<Website> websitesToDelete = websitesRepository.getWebsitesByUserId(user_id);
+        websitesRepository.deleteAll(websitesToDelete);
+    }
 }
