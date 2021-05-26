@@ -39,6 +39,8 @@ public class WebsiteService {
 
         }while (tempWebsite != null);
 
+        if(websitesRepository.getWebsiteByUrl(dto.getUrl()) != null)
+            return null;
         website.setToken(token);
 
         websitesRepository.save(website);
