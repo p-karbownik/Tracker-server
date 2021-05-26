@@ -66,6 +66,6 @@ public class WebsiteController {
     @DeleteMapping("/deleteAll/{user_id}")
     public void deleteAllWebsitesByUserId(@PathVariable Integer user_id)
     {
-        deleteAllWebsitesByUserId(user_id);
+        websiteService.deleteWebsitesByUserId(user_id);
     }
 }

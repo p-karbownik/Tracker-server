@@ -1,17 +1,14 @@
 package pl.edu.pw.pik.pikactivitytrackerserver.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.edu.pw.pik.pikactivitytrackerserver.DTO.WebsiteDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.Repository.WebsitesRepository;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Website;
-
 import java.util.List;
 import java.util.UUID;
 
-//it means that this class contains buisness logic
 @Service
 @Transactional
 public class WebsiteService {
@@ -36,6 +33,10 @@ public class WebsiteService {
         do {
             token = generateToken();
             tempWebsite = websitesRepository.getWebsiteByToken(token);
+
+            if(tempWebsite == null)
+                tempWebsite = websitesRepository.getWebsiteByUrl(dto.getUrl());
+
         }while (tempWebsite != null);
 
         website.setToken(token);
@@ -55,13 +56,13 @@ public class WebsiteService {
        return websitesRepository.getWebsiteByWebsite_id(id);
     }
 
-    public void deleteWebsite(int website_id, int user_id)
+    public void deleteWebsite(int user_id, int website_id)
     {
         Website ws = websitesRepository.getWebsiteByWebsite_idAndUser_id(website_id, user_id);
 
         if(ws != null)
             if (websitesRepository.existsById(website_id)) {
-                websitesRepository.deleteById(user_id);
+                websitesRepository.deleteById(website_id);
             }
     }
 
