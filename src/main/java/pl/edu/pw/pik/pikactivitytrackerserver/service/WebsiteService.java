@@ -34,9 +34,6 @@ public class WebsiteService {
             token = generateToken();
             tempWebsite = websitesRepository.getWebsiteByToken(token);
 
-            if(tempWebsite == null)
-                tempWebsite = websitesRepository.getWebsiteByUrl(dto.getUrl());
-
         }while (tempWebsite != null);
 
         if(websitesRepository.getWebsiteByUrl(dto.getUrl()) != null)
