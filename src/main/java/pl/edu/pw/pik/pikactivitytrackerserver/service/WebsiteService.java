@@ -1,20 +1,25 @@
 package pl.edu.pw.pik.pikactivitytrackerserver.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.edu.pw.pik.pikactivitytrackerserver.DTO.WebsiteDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.Repository.WebsitesRepository;
+import pl.edu.pw.pik.pikactivitytrackerserver.dal.CollectionDAL;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Website;
+
 import java.util.List;
 import java.util.UUID;
 
 @Service
 @Transactional
 public class WebsiteService {
-
     @Autowired
     WebsitesRepository websitesRepository;
+
+    @Autowired
+    CollectionDAL collectionDAL;
 
     private String generateToken()
     {
@@ -39,7 +44,7 @@ public class WebsiteService {
         if(websitesRepository.getWebsiteByUrl(dto.getUrl()) != null)
             return null;
         website.setToken(token);
-
+        collectionDAL.createCollection(token);
         websitesRepository.save(website);
 
         return token;
@@ -61,6 +66,7 @@ public class WebsiteService {
 
         if(ws != null)
             if (websitesRepository.existsById(website_id)) {
+                collectionDAL.dropCollection(ws.getToken());
                 websitesRepository.deleteById(website_id);
             }
     }

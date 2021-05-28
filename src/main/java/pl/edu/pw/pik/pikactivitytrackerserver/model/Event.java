@@ -2,8 +2,9 @@ package pl.edu.pw.pik.pikactivitytrackerserver.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 
-//@Document
+@Document
 public class Event {
 
     @Id
@@ -11,15 +12,18 @@ public class Event {
     private String website_token;
     private String eventName;
     private String eventData;
+    private Timestamp eventTimestamp;
 
     public Event()
     {
     }
 
-    public Event(String id, String website_token, String eventData) {
+    public Event(String id, String website_token, String eventName, String eventData, Timestamp eventTimestamp) {
         this.id = id;
         this.website_token = website_token;
+        this.eventName = eventName;
         this.eventData = eventData;
+        this.eventTimestamp = eventTimestamp;
     }
 
     public String getId() {
@@ -46,7 +50,6 @@ public class Event {
         this.eventData = eventData;
     }
 
-
     public String getEventName() {
         return eventName;
     }
@@ -54,6 +57,15 @@ public class Event {
     public void setEventName(String eventName) {
         this.eventName = eventName;
     }
+
+    public Timestamp getEventTimestamp() {
+        return eventTimestamp;
+    }
+
+    public void setEventTimestamp(Timestamp eventTimestamp) {
+        this.eventTimestamp = eventTimestamp;
+    }
+
 
 
 }
