@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.edu.pw.pik.pikactivitytrackerserver.DTO.EventDTO;
+import pl.edu.pw.pik.pikactivitytrackerserver.DTO.StatisticsDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.dal.EventDAL;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Event;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -31,4 +33,9 @@ public class EventService {
         }
     }
 
+    public StatisticsDTO getStatisticAboutEvent(String webSiteToken, String EventName, boolean dayFormat, Date dateFrom, Date dateTo)
+    {
+
+        return null;
+    }
 }
