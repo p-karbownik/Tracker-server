@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.Set;
-
 @Repository
 public class CollectionDALImplementation implements CollectionDAL{
     private final MongoTemplate mongoTemplate;
