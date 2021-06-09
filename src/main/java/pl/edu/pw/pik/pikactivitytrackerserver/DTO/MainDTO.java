@@ -10,9 +10,10 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MainDTO {
-    int websiteId;
-    String websiteName;
-    int numberOfEvents;
-    Timestamp lastEventTimestamp;
-    String mostPopularEventName;
+    private  int websiteId;
+    private String websiteName;
+    private String token;
+    private int numberOfEvents;
+    private Timestamp lastEventTimestamp;
+    private String mostPopularEventName;
 }
