@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.edu.pw.pik.pikactivitytrackerserver.DTO.MainDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.Repository.WebsitesRepository;
 import pl.edu.pw.pik.pikactivitytrackerserver.dal.CollectionDAL;
+import pl.edu.pw.pik.pikactivitytrackerserver.exeptions.CollectionDoesNotExistException;
+import pl.edu.pw.pik.pikactivitytrackerserver.model.Event;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Website;
 
 import java.sql.Timestamp;
@@ -29,12 +31,18 @@ public class MainService {
         for(Website website : websites){
             int websiteId = website.getWebsite_id();
             String websiteName = website.getName();
-            int numberOfEvents = 0;
-            Timestamp lastEventTimestamp = null;
-            String mostPopularEventName = null;
+            String token = website.getToken();
 
-            if(){
+            int numberOfEvents;
+            Timestamp lastEventTimestamp;
+            String mostPopularEventName;
 
+            try {
+                List<Event> events = collectionDAL.getEventsFromCollection(token);
+            } catch (CollectionDoesNotExistException c) {
+                numberOfEvents = 0;
+                lastEventTimestamp = null;
+                mostPopularEventName = null;
             }
 
 
