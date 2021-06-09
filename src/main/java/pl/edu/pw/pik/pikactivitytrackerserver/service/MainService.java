@@ -12,7 +12,9 @@ import pl.edu.pw.pik.pikactivitytrackerserver.model.Website;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -39,8 +41,9 @@ public class MainService {
 
             try {
                 List<Event> events = collectionDAL.getEventsFromCollection(token);
-                //TODO get info from events
-                System.out.println("ala");
+                numberOfEvents = events.size();
+                lastEventTimestamp = events.get(numberOfEvents-1).getEventOccurrenceLocalDateTime();
+                mostPopularEventName = getMostPopularEventName(events);
             } catch (CollectionDoesNotExistException c) {
                 numberOfEvents = 0;
                 lastEventTimestamp = null;
@@ -48,13 +51,34 @@ public class MainService {
             }
 
 
-//            MainDTO mainDTO = new MainDTO(websiteId, websiteName,
-//                    numberOfEvents,
-//                    lastEventTimestamp,
-//                    mostPopularEventName);
+            MainDTO mainDTO = new MainDTO(websiteId, websiteName, token,
+                    numberOfEvents, lastEventTimestamp, mostPopularEventName);
 
+            result.add(mainDTO);
         }
-        return null;
+        return result;
+    }
+
+    private String getMostPopularEventName(List<Event> events) {
+        Map<String,Integer> namesCount = new HashMap();
+
+        for(Event event : events){
+            if( namesCount.containsKey(event.getEventName()) ){
+                namesCount.put(event.getEventName(), namesCount.get(event.getEventName()) + 1);
+            } else {
+                namesCount.put(event.getEventName(), 1 );
+            }
+        }
+
+        int maxValue = 0;
+        String mostPopularName = "";
+        for (Map.Entry<String , Integer> entry : namesCount.entrySet()) {
+            if (entry.getValue() > maxValue) {
+                maxValue = entry.getValue();
+                mostPopularName = entry.getKey();
+            }
+        }
+        return mostPopularName;
     }
 
 }

@@ -33,8 +33,7 @@ public class CollectionDALImplementation implements CollectionDAL{
     @Override
     public List<Event> getEventsFromCollection(String token) throws CollectionDoesNotExistException {
         if(mongoTemplate.getCollectionNames().contains(token)){
-            List<Event> events = mongoTemplate.findAll(Event.class, token);
-            return events;
+            return mongoTemplate.findAll(Event.class, token);
         }
         throw new CollectionDoesNotExistException(token);
     }
