@@ -35,15 +35,18 @@ public class MainService {
             String websiteName = website.getName();
             String token = website.getToken();
 
-            int numberOfEvents;
-            Timestamp lastEventTimestamp;
-            String mostPopularEventName;
+            int numberOfEvents = 0;
+            Timestamp lastEventTimestamp = null;
+            String mostPopularEventName = null;
 
             try {
                 List<Event> events = collectionDAL.getEventsFromCollection(token);
-                numberOfEvents = events.size();
-                lastEventTimestamp = events.get(numberOfEvents-1).getEventOccurrenceLocalDateTime();
-                mostPopularEventName = getMostPopularEventName(events);
+
+                if(events.size() > 0){
+                    numberOfEvents = events.size();
+                    lastEventTimestamp = events.get(numberOfEvents-1).getEventOccurrenceLocalDateTime();
+                    mostPopularEventName = getMostPopularEventName(events);
+                }
             } catch (CollectionDoesNotExistException c) {
                 numberOfEvents = 0;
                 lastEventTimestamp = null;
