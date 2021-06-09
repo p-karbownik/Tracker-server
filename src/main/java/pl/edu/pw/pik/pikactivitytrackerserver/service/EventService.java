@@ -9,6 +9,7 @@ import pl.edu.pw.pik.pikactivitytrackerserver.dal.EventDAL;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Event;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -24,7 +25,7 @@ public class EventService {
         event.setEventData(dto.getEventData());
         event.setWebsite_token(dto.getWebsiteToken());
         event.setId(UUID.randomUUID().toString());
-        event.setEventTimestamp(dto.getAppearanceDate());
+        event.setEventOccurrenceLocalDateTime(dto.getAppearanceDate());
         try {
             eventDAL.saveEvent(event);
             return true;
@@ -33,9 +34,13 @@ public class EventService {
         }
     }
 
-    public StatisticsDTO getStatisticAboutEvent(String webSiteToken, String EventName, boolean dayFormat, Date dateFrom, Date dateTo)
+    public String getStatisticAboutEvent(String webSiteToken, String EventName, boolean dayFormat, Date dateFrom, Date dateTo)
     {
-
         return null;
+    }
+
+    public List<String> getEventNames(String websiteToken) throws Exception
+    {
+        return eventDAL.getUniqueEventNames(websiteToken);
     }
 }

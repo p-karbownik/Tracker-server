@@ -9,6 +9,7 @@ import pl.edu.pw.pik.pikactivitytrackerserver.DTO.StatisticsDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.service.EventService;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/events")
@@ -32,5 +33,18 @@ public class EventController {
     {
 
         return null;
+    }
+
+    @GetMapping(value = "/getEventsNames/{websiteToken}")
+    public ResponseEntity<List<String>> getEventNames(@PathVariable String websiteToken)
+    {
+        try
+        {
+            return new ResponseEntity<>(eventService.getEventNames(websiteToken), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 }
