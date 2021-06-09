@@ -24,11 +24,11 @@ public class MainService {
     @Autowired
     WebsitesRepository websitesRepository;
 
-    public List<MainDTO> getMainData(int userId){
+    public List<MainDTO> getMainData(int userId) {
         List<Website> websites = websitesRepository.getWebsitesByUserId(userId);
         List<MainDTO> result = new ArrayList<>();
 
-        for(Website website : websites){
+        for (Website website : websites) {
             int websiteId = website.getWebsite_id();
             String websiteName = website.getName();
             String token = website.getToken();
@@ -39,6 +39,8 @@ public class MainService {
 
             try {
                 List<Event> events = collectionDAL.getEventsFromCollection(token);
+                //TODO get info from events
+                System.out.println("ala");
             } catch (CollectionDoesNotExistException c) {
                 numberOfEvents = 0;
                 lastEventTimestamp = null;
@@ -50,6 +52,8 @@ public class MainService {
 //                    numberOfEvents,
 //                    lastEventTimestamp,
 //                    mostPopularEventName);
+
+        }
         return null;
     }
 

@@ -1,4 +1,5 @@
 package pl.edu.pw.pik.pikactivitytrackerserver.dal;
+import org.springframework.data.mongodb.core.query.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -32,7 +33,8 @@ public class CollectionDALImplementation implements CollectionDAL{
     @Override
     public List<Event> getEventsFromCollection(String token) throws CollectionDoesNotExistException {
         if(mongoTemplate.getCollectionNames().contains(token)){
-//            TODO create query
+            List<Event> events = mongoTemplate.findAll(Event.class, token);
+            return events;
         }
         throw new CollectionDoesNotExistException(token);
     }
