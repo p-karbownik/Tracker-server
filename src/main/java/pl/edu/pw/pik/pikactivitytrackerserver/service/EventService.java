@@ -1,9 +1,11 @@
 package pl.edu.pw.pik.pikactivitytrackerserver.service;
 
+import org.postgresql.jdbc.PgStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.edu.pw.pik.pikactivitytrackerserver.DTO.EventDTO;
+import pl.edu.pw.pik.pikactivitytrackerserver.DTO.StatRequestDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.DTO.StatisticsDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.dal.EventDAL;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Event;
@@ -51,8 +53,12 @@ public class EventService {
         return list;
     }
 
-    public StatisticsDTO getStatisticsPerDay(String webToken, String eventName, Timestamp dateFrom, Timestamp dateTo)
+    public StatisticsDTO getStatisticsPerDay(StatRequestDTO dto)
     {
+        String webToken = dto.getWebToken();
+        String eventName = dto.getEventName();
+        Timestamp dateFrom = dto.getDateFrom();
+        Timestamp dateTo = dto.getDateTo();
         List<Event> result = eventDAL.getEventsByNamesAndDates(webToken, eventName,dateFrom, dateTo);
         Collections.sort(result);
 
@@ -84,9 +90,12 @@ public class EventService {
         return stat;
     }
 
-    public StatisticsDTO getStatisticsPerHour(String webToken, String eventName,
-                                          Timestamp dateFrom, Timestamp dateTo)
+    public StatisticsDTO getStatisticsPerHour(StatRequestDTO dto)
     {
+        String webToken = dto.getWebToken();
+        String eventName = dto.getEventName();
+        Timestamp dateFrom = dto.getDateFrom();
+        Timestamp dateTo = dto.getDateTo();
         List<Event> result = eventDAL.getEventsByNamesAndDates(webToken, eventName,dateFrom, dateTo);
         Collections.sort(result);
 

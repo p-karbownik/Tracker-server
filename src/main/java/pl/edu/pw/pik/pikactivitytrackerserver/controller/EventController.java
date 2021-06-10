@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pw.pik.pikactivitytrackerserver.DTO.EventDTO;
+import pl.edu.pw.pik.pikactivitytrackerserver.DTO.StatRequestDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.DTO.StatisticsDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Event;
 import pl.edu.pw.pik.pikactivitytrackerserver.service.EventService;
@@ -33,19 +34,17 @@ public class EventController {
             return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
     }
 
-    @GetMapping(value = "/getStatisticsPerDay/{webToken}/{eventName}{dateFrom}/{dateTo}")
-    public ResponseEntity<?> getStatisticsDataPerDay(@PathVariable String webToken, @PathVariable String eventName,
-                                               @PathVariable Timestamp dateFrom, @PathVariable Timestamp dateTo)
+    @PostMapping(value = "/getStatisticsPerDay")
+    public ResponseEntity<?> getStatisticsDataPerDay(@RequestBody StatRequestDTO requestDTO)
     {
-        StatisticsDTO stats = eventService.getStatisticsPerDay(webToken, eventName, dateFrom, dateTo);
+        StatisticsDTO stats = eventService.getStatisticsPerDay(requestDTO);
         return new ResponseEntity<>(stats, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/getStatisticsPerHour/{webToken}/{eventName}/{dateFrom}/{dateTo}")
-    public ResponseEntity<?> getStatisticsDataPerHour(@PathVariable String webToken, @PathVariable String eventName,
-                                                     @PathVariable Timestamp dateFrom, @PathVariable Timestamp dateTo)
+    @PostMapping(value = "/getStatisticsPerHour")
+    public ResponseEntity<?> getStatisticsDataPerHour(@RequestBody StatRequestDTO requestDTO)
     {
-        StatisticsDTO stats = eventService.getStatisticsPerHour(webToken, eventName, dateFrom, dateTo);
+        StatisticsDTO stats = eventService.getStatisticsPerHour(requestDTO);
         return new ResponseEntity<>(stats, HttpStatus.OK);
     }
 
