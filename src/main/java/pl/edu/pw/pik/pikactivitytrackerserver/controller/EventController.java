@@ -41,6 +41,14 @@ public class EventController {
         return new ResponseEntity<>(stats, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/getStatisticsPerHour/{webToken}/{eventName}/{dateFrom}/{dateTo}")
+    public ResponseEntity<?> getStatisticsDataPerHour(@PathVariable String webToken, @PathVariable String eventName,
+                                                     @PathVariable Timestamp dateFrom, @PathVariable Timestamp dateTo)
+    {
+        StatisticsDTO stats = eventService.getStatisticsPerHour(webToken, eventName, dateFrom, dateTo);
+        return new ResponseEntity<>(stats, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/getEventsNames/{websiteToken}")
     public ResponseEntity<?> getEventNames(@PathVariable String websiteToken)
     {
@@ -55,4 +63,6 @@ public class EventController {
             return new ResponseEntity<>(list, HttpStatus.OK);
         }
     }
+
+
 }

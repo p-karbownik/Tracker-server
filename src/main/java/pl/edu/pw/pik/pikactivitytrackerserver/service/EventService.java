@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
@@ -50,9 +51,7 @@ public class EventService {
         return list;
     }
 
-
-    public StatisticsDTO getStatisticsPerDay(String webToken, String eventName,
-                                          Timestamp dateFrom, Timestamp dateTo)
+    public StatisticsDTO getStatisticsPerDay(String webToken, String eventName, Timestamp dateFrom, Timestamp dateTo)
     {
         List<Event> result = eventDAL.getEventsByNamesAndDates(webToken, eventName,dateFrom, dateTo);
         Collections.sort(result);
@@ -78,6 +77,40 @@ public class EventService {
         for (Map.Entry<LocalDate, Integer> entry : sorted.entrySet())
         {
             labels.add(entry.getKey().toString());
+            amountOfEvents.add(entry.getValue());
+        }
+
+        StatisticsDTO stat = new StatisticsDTO(eventName, labels, amountOfEvents);
+        return stat;
+    }
+
+    public StatisticsDTO getStatisticsPerHour(String webToken, String eventName,
+                                          Timestamp dateFrom, Timestamp dateTo)
+    {
+        List<Event> result = eventDAL.getEventsByNamesAndDates(webToken, eventName,dateFrom, dateTo);
+        Collections.sort(result);
+
+        Map<LocalDateTime, Integer> occurrencesPerDay = new HashMap<LocalDateTime, Integer>();
+        for (Event e : result)
+        {
+            LocalDateTime temp = e.getEventOccurrenceLocalDateTime().truncatedTo(ChronoUnit.HOURS);
+
+            int count = occurrencesPerDay.containsKey(temp) ? occurrencesPerDay.get(temp) : 0;
+            occurrencesPerDay.put(temp, count + 1);
+        }
+
+        TreeMap<LocalDateTime, Integer> sorted = new TreeMap<>();
+
+        sorted.putAll(occurrencesPerDay);
+
+        Set<LocalDateTime> dates = sorted.keySet();
+        ArrayList<String> labels = new ArrayList<>();
+        ArrayList<Integer> amountOfEvents = new ArrayList<>();
+
+        for (Map.Entry<LocalDateTime, Integer> entry : sorted.entrySet())
+        {
+            String key = entry.getKey().toString().substring(0,10) + " " + entry.getKey().toString().substring(11,13);
+            labels.add(key);
             amountOfEvents.add(entry.getValue());
         }
 
