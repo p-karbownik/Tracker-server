@@ -8,9 +8,11 @@ import pl.edu.pw.pik.pikactivitytrackerserver.DTO.StatisticsDTO;
 import pl.edu.pw.pik.pikactivitytrackerserver.dal.EventDAL;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Event;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 @Transactional
@@ -25,7 +27,7 @@ public class EventService {
         event.setEventData(dto.getEventData());
         event.setWebsite_token(dto.getWebsiteToken());
         event.setId(UUID.randomUUID().toString());
-        event.setEventOccurrenceLocalDateTime(dto.getAppearanceDate());
+        event.setEventOccurrenceLocalDateTime(dto.getAppearanceDate().toLocalDateTime());
         try {
             eventDAL.saveEvent(event);
             return true;
@@ -34,13 +36,52 @@ public class EventService {
         }
     }
 
-    public String getStatisticAboutEvent(String webSiteToken, String EventName, boolean dayFormat, Date dateFrom, Date dateTo)
-    {
-        return null;
+    public List<String> getEventsNames(String webToken) {
+        List<String> list;
+        try
+        {
+            list = eventDAL.getUniqueEventNames(webToken);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+
+        return list;
     }
 
-    public List<String> getEventNames(String websiteToken) throws Exception
+
+    public StatisticsDTO getStatisticsPerDay(String webToken, String eventName,
+                                          Timestamp dateFrom, Timestamp dateTo)
     {
-        return eventDAL.getUniqueEventNames(websiteToken);
+        List<Event> result = eventDAL.getEventsByNamesAndDates(webToken, eventName,dateFrom, dateTo);
+        Collections.sort(result);
+
+        Map<LocalDate, Integer> occurrencesPerDay = new HashMap<LocalDate, Integer>();
+        for (Event e : result)
+        {
+            LocalDateTime temp = e.getEventOccurrenceLocalDateTime();
+            LocalDate temp1 = temp.toLocalDate();
+
+            int count = occurrencesPerDay.containsKey(temp1) ? occurrencesPerDay.get(temp1) : 0;
+            occurrencesPerDay.put(temp1, count + 1);
+        }
+
+        TreeMap<LocalDate, Integer> sorted = new TreeMap<>();
+
+        sorted.putAll(occurrencesPerDay);
+
+        Set<LocalDate> dates = sorted.keySet();
+        ArrayList<String> labels = new ArrayList<>();
+        ArrayList<Integer> amountOfEvents = new ArrayList<>();
+
+        for (Map.Entry<LocalDate, Integer> entry : sorted.entrySet())
+        {
+            labels.add(entry.getKey().toString());
+            amountOfEvents.add(entry.getValue());
+        }
+
+        StatisticsDTO stat = new StatisticsDTO(eventName, labels, amountOfEvents);
+        return stat;
     }
 }
