@@ -59,7 +59,7 @@ public class EventService {
         String eventName = dto.getEventName();
         Timestamp dateFrom = dto.getDateFrom();
         Timestamp dateTo = dto.getDateTo();
-        List<Event> result = eventDAL.getEventsByNamesAndDates(webToken, eventName,dateFrom, dateTo);
+        List<Event> result = eventDAL.getEventsByNamesAndDates(webToken, eventName,dateFrom.toLocalDateTime(), dateTo.toLocalDateTime());
         Collections.sort(result);
 
         Map<LocalDate, Integer> occurrencesPerDay = new HashMap<LocalDate, Integer>();
@@ -96,7 +96,7 @@ public class EventService {
         String eventName = dto.getEventName();
         Timestamp dateFrom = dto.getDateFrom();
         Timestamp dateTo = dto.getDateTo();
-        List<Event> result = eventDAL.getEventsByNamesAndDates(webToken, eventName,dateFrom, dateTo);
+        List<Event> result = eventDAL.getEventsByNamesAndDates(webToken, eventName,dateFrom.toLocalDateTime(), dateTo.toLocalDateTime());
         Collections.sort(result);
 
         Map<LocalDateTime, Integer> occurrencesPerDay = new HashMap<LocalDateTime, Integer>();

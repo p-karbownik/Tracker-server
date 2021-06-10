@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Event;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
@@ -32,7 +33,7 @@ public class EventDALImplementation implements EventDAL{
     }
 
     @Override
-    public List<Event> getEventsByNamesAndDates(String webSiteToken, String eventName, Timestamp dateFrom, Timestamp dateTo)
+    public List<Event> getEventsByNamesAndDates(String webSiteToken, String eventName, LocalDateTime dateFrom, LocalDateTime dateTo)
     {
         if(mongoTemplate.getCollectionNames().contains(webSiteToken))
         {

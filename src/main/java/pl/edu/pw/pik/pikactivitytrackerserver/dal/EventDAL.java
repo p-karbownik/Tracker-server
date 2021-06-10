@@ -9,7 +9,7 @@ import java.util.List;
 public interface EventDAL
 {
     void saveEvent(Event event) throws Exception;
-    List<Event> getEventsByNamesAndDates(String webSiteToken, String eventName, Timestamp dateFrom, Timestamp dateTo);
+    List<Event> getEventsByNamesAndDates(String webSiteToken, String eventName, LocalDateTime dateFrom, LocalDateTime dateTo);
     List<String> getUniqueEventNames(String token) throws Exception;
     List<Event> findByDateAfter(Timestamp timestamp);
     List<Event> findById(String id, String token);
