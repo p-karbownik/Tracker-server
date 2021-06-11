@@ -1,28 +1,31 @@
 package pl.edu.pw.pik.pikactivitytrackerserver.model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "user")
 @Table(name = "users")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private int user_id;
 
-    private String login;
-    //Contains hash of a password
-    private  String password;
+    @Column(name = "username")
+    private String username;
 
-    //TODO Do I need id or is it actually generated
-    public User(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
+    @Column(name = "password")
+    private String password;
 
-    //TODO why jpa requires an empty constructor?
-    public User() {
+    @Column(name = "salt")
+    private String salt;
 
-    }
 }

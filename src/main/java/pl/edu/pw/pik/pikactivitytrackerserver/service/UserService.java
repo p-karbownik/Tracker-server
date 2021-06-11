@@ -1,32 +1,57 @@
 package pl.edu.pw.pik.pikactivitytrackerserver.service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
-import pl.edu.pw.pik.pikactivitytrackerserver.DAO.Dao;
+import org.springframework.transaction.annotation.Transactional;
+import pl.edu.pw.pik.pikactivitytrackerserver.DTO.UserDTO;
+import pl.edu.pw.pik.pikactivitytrackerserver.Repository.UserRepository;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.User;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.UUID;
 
 //it means that this class contains buisness logic
 @Service
+@Transactional
 public class UserService {
 
-    private static Dao<User> userDao;
+    @Autowired
+    UserRepository userRepository;
 
-    public static User getUser(long id) {
-        Optional<User> user = userDao.get(id);
+    public User register(UserDTO userDTO) {
 
-        return user.orElseGet(
-                () -> new User("no-non-existing login", "non-existing password"));
+        String username = userDTO.getUsername();
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(userDTO.getPassword());
+        user.setSalt(userDTO.getSalt());
+
+        if (userRepository.findByUsername(username) != null){
+            return null;
+        }
+        userRepository.save(user);
+
+        return user;
     }
 
-    public static void updateUser(User user, String[] params) {
-        userDao.update(user, params);
+    public String loginUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        if (user != null){
+            return user.getSalt();
+        }
+        return null;
     }
 
-    public static void saveUser(User user) {
-        userDao.save(user);
-    }
+    public Integer loginUsernameAndHashedPassword(String username, String password) {
+        User user = userRepository.findByUsername(username);
 
-    public static void deleteUser(User user) {
-        userDao.delete(user);
+        if ( user != null){
+
+            if(user.getPassword().equals(password))
+
+                return user.getUser_id();
+        }
+        return null;
     }
 }
