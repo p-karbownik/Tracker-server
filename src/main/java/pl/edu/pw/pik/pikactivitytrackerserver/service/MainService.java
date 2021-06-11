@@ -45,8 +45,9 @@ public class MainService {
 
                 if(events.size() > 0){
                     numberOfEvents = events.size();
-                    LocalDateTime tmp = events.get(numberOfEvents-1).getEventOccurrenceLocalDateTime();
-//                    lastEventTimestamp =
+                    int lastEvent = numberOfEvents-1;
+                    LocalDateTime tmp = events.get(lastEvent).getEventOccurrenceLocalDateTime();
+                    lastEventTimestamp = Timestamp.valueOf(tmp);
                     mostPopularEventName = getMostPopularEventName(events);
                 }
             } catch (CollectionDoesNotExistException c) {
