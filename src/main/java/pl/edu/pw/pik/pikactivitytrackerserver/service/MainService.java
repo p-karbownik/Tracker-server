@@ -11,6 +11,7 @@ import pl.edu.pw.pik.pikactivitytrackerserver.model.Event;
 import pl.edu.pw.pik.pikactivitytrackerserver.model.Website;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +45,8 @@ public class MainService {
 
                 if(events.size() > 0){
                     numberOfEvents = events.size();
-                    lastEventTimestamp = events.get(numberOfEvents-1).getEventOccurrenceLocalDateTime();
+                    LocalDateTime tmp = events.get(numberOfEvents-1).getEventOccurrenceLocalDateTime();
+//                    lastEventTimestamp =
                     mostPopularEventName = getMostPopularEventName(events);
                 }
             } catch (CollectionDoesNotExistException c) {
