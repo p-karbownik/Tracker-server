@@ -2,28 +2,28 @@ package pl.edu.pw.pik.pikactivitytrackerserver.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.Id;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Document
-public class Event {
+public class Event implements Comparable<Event> {
 
     @Id
     private String id;
     private String website_token;
     private String eventName;
     private String eventData;
-    private Timestamp eventTimestamp;
+    private LocalDateTime eventOccurrenceLocalDateTime;
 
     public Event()
     {
     }
 
-    public Event(String id, String website_token, String eventName, String eventData, Timestamp eventTimestamp) {
+    public Event(String id, String website_token, String eventName, String eventData, LocalDateTime eventOccurrenceLocalDateTime) {
         this.id = id;
         this.website_token = website_token;
         this.eventName = eventName;
         this.eventData = eventData;
-        this.eventTimestamp = eventTimestamp;
+        this.eventOccurrenceLocalDateTime = eventOccurrenceLocalDateTime;
     }
 
     public String getId() {
@@ -58,14 +58,17 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public Timestamp getEventTimestamp() {
-        return eventTimestamp;
+    public LocalDateTime getEventOccurrenceLocalDateTime() {
+        return eventOccurrenceLocalDateTime;
     }
 
-    public void setEventTimestamp(Timestamp eventTimestamp) {
-        this.eventTimestamp = eventTimestamp;
+    public void setEventOccurrenceLocalDateTime(LocalDateTime eventOccurrenceLocalDateTime) {
+        this.eventOccurrenceLocalDateTime = eventOccurrenceLocalDateTime;
     }
 
 
-
+    @Override
+    public int compareTo(Event o) {
+        return this.eventOccurrenceLocalDateTime.compareTo(o.eventOccurrenceLocalDateTime);
+    }
 }
